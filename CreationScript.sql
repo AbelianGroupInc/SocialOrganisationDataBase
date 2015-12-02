@@ -47,6 +47,14 @@ CREATE TABLE ContactInformation(
 	FOREIGN KEY(Id) REFERENCES Organisation(Id)
 );
 
+/* Table Email, (ID, Email, ContactInfoId)*/
+CREATE TABLE Email(
+	Id SERIAL NOT NULL PRIMARY KEY,
+	Email CHAR(70) NOT NULL,
+	ContactInfoId BIGINT NOT NULL,
+	FOREIGN KEY(ContactInfoId) REFERENCES ContactInformation(Id)
+);
+
 /* Table OrganisationDescription, (ID, Organisation_Info, Charter, Purposes_Description)*/	
 CREATE TABLE OrganisationDescription(
 	Id SERIAL NOT NULL PRIMARY KEY,
