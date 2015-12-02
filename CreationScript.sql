@@ -1,12 +1,12 @@
 ﻿/* Table Leader, (ID, FIO)*/
 CREATE TABLE Leader(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	FIO CHAR(40) NOT NULL
 );
 
 /* Table Leadre Email, (ID, Mail, LeaderID)*/
 CREATE TABLE LeadreEmail(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	Mail CHAR(50) NOT NULL,
 	LeaderId BIGINT NOT NULL,
 	FOREIGN KEY(LeaderId) REFERENCES Leader(Id)
@@ -15,7 +15,7 @@ CREATE TABLE LeadreEmail(
 /* Table Organisation, (ID, Full_Name, Cutet_Name, Creation_date, Sertificate_Date,
 Initiative_Group_Description, Type, LeaderID)*/
 CREATE TABLE Organisation(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	FullName CHAR(100) NOT NULL UNIQUE,
 	CutetName CHAR(50) NOT NULL UNIQUE,
 	CreationDate DATE,
@@ -29,7 +29,7 @@ CREATE TABLE Organisation(
 /* Table Legalisation, (ID, Registration_Date, Reference__To_The_Site, Number_Of_Registration, Legalisation_Or_Registration,
 Number_Of_Order, Sertificate_Number)*/
 CREATE TABLE Legalisation(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	RegistrationDate DATE NOT NULL, 
 	ReferenceToTheSite CHAR(100) NOT NULL,
 	NumberOfRegistration INTEGER NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE Legalisation(
 
 /* Table ConctactInformation, (ID, Email, Website_Address, Fax, Legal_Address)*/
 CREATE TABLE ContactInformation(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	Email CHAR(70), /* Need to realise the constrain ...@...*/
 	WebsiteAddress CHAR(254),
 	FOREIGN KEY(Id) REFERENCES Organisation(Id)
@@ -49,7 +49,7 @@ CREATE TABLE ContactInformation(
 
 /* Table OrganisationDescription, (ID, Organisation_Info, Charter, Purposes_Description)*/	
 CREATE TABLE OrganisationDescription(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	OrganisationInfo TEXT NOT NULL,
 	Charter TEXT NOT NULL,
 	PurposesDescription TEXT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE OrganisationDescription(
 
 /*Table PhoneNumber, (Id, PHONE_NAME, PHONE_VALUE, IS_FAX, IS_MOBILE)*/
 CREATE TABLE PhoneNumber(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	PhoneName CHAR(50),
 	PhoneValue INTEGER NOT NULL,
 	IsFax BOOLEAN,
@@ -78,7 +78,7 @@ CREATE TABLE LeaderContacts(
 
 /*Table ActualAddress, (ID, ADDRESS_NAME, ADDRESS_VALUE, PHONE_NUMBER_ID)*/
 CREATE TABLE ActualAddress(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	AddressName CHAR(70),
 	AddressValue CHAR(70)
 );
@@ -132,7 +132,7 @@ CREATE TABLE ActivityDirectory(
 /*Table Activity, (Id, ActivityName, Type, NumberOfMembers, PurposeDescription,
 Result)*/
 CREATE TABLE Activity(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	ActivityName CHAR(100) NOT NULL UNIQUE,
 	/*Relisation of Type*/
 	NumberOfMembers INT,
@@ -142,7 +142,7 @@ CREATE TABLE Activity(
 
 /*Table Type, (Id, Type)*/
 CREATE TABLE Type(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	Type CHAR(100) NOT NULL
 );
 
@@ -158,7 +158,7 @@ CREATE TABLE ActivityType(
 /*Table ActivityProperties, (Id, Openness, Audience, County, Level, Frequene,
 FundingType, Funded, PoliticalComposeExistance)*/
 CREATE TABLE ActivityProperties(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	Openness CHAR(5) 
 		CHECK (Openness IN('Open','Close')),
 	Audience CHAR(7)
@@ -197,7 +197,7 @@ CREATE TABLE AEvent(
 
 /*Table SocialNetworkAddress,  (Id, AddressName, AddressValue, CotactIndoId)*/
 CREATE TABLE SocialNetworkAddress(
-	Id BIGINT NOT NULL PRIMARY KEY,
+	Id SERIAL NOT NULL PRIMARY KEY,
 	AddressName CHAR(100),
 	AddressValue INT NOT NULL,
 	ContactInfoId BIGINT NOT NULL,
