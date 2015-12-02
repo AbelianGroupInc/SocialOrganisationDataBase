@@ -42,7 +42,6 @@ CREATE TABLE Legalisation(
 /* Table ConctactInformation, (ID, Email, Website_Address, Fax, Legal_Address)*/
 CREATE TABLE ContactInformation(
 	Id SERIAL NOT NULL PRIMARY KEY,
-	Email CHAR(70), /* Need to realise the constrain ...@...*/
 	WebsiteAddress CHAR(254),
 	FOREIGN KEY(Id) REFERENCES Organisation(Id)
 );
