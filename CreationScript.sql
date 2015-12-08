@@ -4,8 +4,8 @@ CREATE TABLE Leader(
 	FIO CHAR(40) NOT NULL
 );
 
-/* Table Leadre Email, (ID, Mail, LeaderID)*/
-CREATE TABLE LeadreEmail(
+/* Table Leader Email, (ID, Mail, LeaderID)*/
+CREATE TABLE LeaderEmail(
 	Id SERIAL NOT NULL PRIMARY KEY,
 	Mail CHAR(50) NOT NULL,
 	LeaderId BIGINT NOT NULL,
@@ -17,9 +17,9 @@ Initiative_Group_Description, Type, LeaderID)*/
 CREATE TABLE Organisation(
 	Id SERIAL NOT NULL PRIMARY KEY,
 	FullName CHAR(100) NOT NULL UNIQUE,
-	CutetName CHAR(50) NOT NULL UNIQUE,
+	CutetNameFull CHAR(50) NOT NULL UNIQUE,
+	CutetNameAbbreviation CHAR(50) NOT NULL UNIQUE,
 	CreationDate DATE,
-	SertificateDate DATE,
 	InitiativeGroupDescription TEXT,
 	/*Atribute Type - how to describe this*/
 	LeaderId BIGINT NOT NULL,
@@ -29,21 +29,25 @@ CREATE TABLE Organisation(
 /* Table Legalisation, (ID, Registration_Date, Reference__To_The_Site, Number_Of_Registration, Legalisation_Or_Registration,
 Number_Of_Order, Sertificate_Number)*/
 CREATE TABLE Legalisation(
-	Id SERIAL NOT NULL PRIMARY KEY,
+	Id BIGINT NOT NULL PRIMARY KEY,
 	RegistrationDate DATE NOT NULL, 
-	ReferenceToTheSite CHAR(100) NOT NULL,
 	NumberOfRegistration INTEGER NOT NULL,
-	LegalisationOrRegistration CHAR (254) NOT NULL, /*Not sure about the type*/
-	NumberOfOrder INTEGER 	NOT NULL,
-	SertificateNumber INTEGER NOT NULL,
+	NumberOfOrder TEXT 	NOT NULL,
 	FOREIGN KEY(Id) REFERENCES Organisation(Id)
 );
 
-/* Table ConctactInformation, (ID, Email, Website_Address, Fax, Legal_Address)*/
+/* Table ConctactInformation, (ID, Email, Website_Address, Fax)*/
 CREATE TABLE ContactInformation(
-	Id SERIAL NOT NULL PRIMARY KEY,
-	WebsiteAddress CHAR(254),
+	Id BIGINT NOT NULL PRIMARY KEY,
 	FOREIGN KEY(Id) REFERENCES Organisation(Id)
+);
+
+/* Table WebSite, (ID, Site, ContactInfoId)*/
+CREATE TABLE WebSite(
+	Id SERIAL NOT NULL PRIMARY KEY,
+	Site CHAR(70) NOT NULL,
+	ContactInfoId BIGINT NOT NULL,
+	FOREIGN KEY(ContactInfoId) REFERENCES ContactInformation(Id)
 );
 
 /* Table Email, (ID, Email, ContactInfoId)*/
@@ -56,12 +60,12 @@ CREATE TABLE Email(
 
 /* Table OrganisationDescription, (ID, Organisation_Info, Charter, Purposes_Description)*/	
 CREATE TABLE OrganisationDescription(
-	Id SERIAL NOT NULL PRIMARY KEY,
+	Id BIGINT NOT NULL PRIMARY KEY,
 	OrganisationInfo TEXT NOT NULL,
-	Charter TEXT NOT NULL,
 	PurposesDescription TEXT NOT NULL,
 	ActivityDirection TEXT,
-	Profitale BOOLEAN,
+	IsProfitale BOOLEAN,
+	IsCharity BOOLEAN,
 	FOREIGN KEY(Id) REFERENCES Organisation(Id)
 );
 
@@ -69,7 +73,7 @@ CREATE TABLE OrganisationDescription(
 CREATE TABLE PhoneNumber(
 	Id SERIAL NOT NULL PRIMARY KEY,
 	PhoneName CHAR(50),
-	PhoneValue INTEGER NOT NULL,
+	PhoneValue CHAR(50) NOT NULL,
 	IsFax BOOLEAN,
 	IsMobile BOOLEAN
 );
@@ -139,7 +143,7 @@ CREATE TABLE ActivityDirectory(
 /*Table Activity, (Id, ActivityName, Type, NumberOfMembers, PurposeDescription,
 Result)*/
 CREATE TABLE Activity(
-	Id SERIAL NOT NULL PRIMARY KEY,
+	Id BIGINT NOT NULL PRIMARY KEY,
 	ActivityName CHAR(100) NOT NULL UNIQUE,
 	/*Relisation of Type*/
 	NumberOfMembers INT,
@@ -210,4 +214,3 @@ CREATE TABLE SocialNetworkAddress(
 	ContactInfoId BIGINT NOT NULL,
 	FOREIGN KEY(ContactInfoId) REFERENCES ContactInformation(Id)
 );
-
